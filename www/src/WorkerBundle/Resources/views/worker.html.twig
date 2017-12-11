@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" }}>
+        <div class="form-group">
+            {{ form_label(form.name, null, {
+                'label_attr': {'class': 'control-label col-sm-2'}
+            }) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.rate, null, {
+                'label_attr': {'class': 'control-label col-sm-2'}
+            }) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.rate, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+           {{ form_label(form.position, null, {
+               'label_attr': {'class': 'control-label col-sm-2'}
+           }) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.position, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.logo, null, {
+                'label_attr': {'class': 'control-label col-sm-2'}
+            }) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.logo, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.firstday, null, {
+                'label_attr': {'class': 'control-label col-sm-2'}
+            }) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.firstday, {'attr' : {'class' : 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10" >
+                {{ form_widget(form.submit, {'label' : 'Подтвердить'}) }}
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

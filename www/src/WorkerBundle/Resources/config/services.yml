@@ -1,0 +1,4 @@
+services:
+    # Fixtures services
+    WorkerBundle\DataFixtures\ORM\PositionLoad:
+            tags: [doctrine.fixture.orm]

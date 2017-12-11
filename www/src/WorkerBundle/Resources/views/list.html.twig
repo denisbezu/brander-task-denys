@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <style>
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+            text-align: center;
+            vertical-align: middle; !important
+
+        }
+    </style>
+    <div class="col-sm-12">
+        <a href="{{ path('create') }}" class="btn btn-success">Добавить</a>
+    </div>
+    <table class="table table-hover table-responsive">
+        <thead>
+        <tr>
+            <th>Фото</th>
+            <th>Сотрудник</th>
+            <th>Должность</th>
+            <th>Рейт</th>
+            <th>Опции</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><img style="max-width: 200px; max-height: 200px;"
+                         src="{{ asset('images/upload/workers/logos/' ~ user.logo) }}"></td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.position.positionName }}</td>
+                <td>{{ user.rate }}</td>
+                <td>
+                    <a href="{{ path('details', {'id': user.id}) }}" class="btn btn-default btn-sm">Просмотр</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(users) }}
+    </div>
+{% endblock body %}

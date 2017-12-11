@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <div>
+        <h2>Пропуски сотрудника {{ worker.name }}</h2>
+        <form class="form-inline" method="post" enctype="multipart/form-data" }}>
+            <div class="form-group">
+                {{ form_label(form.startDate ) }}
+                {#<div class="col-sm-5">#}
+                    {{ form_widget(form.startDate, {'attr' : {'class' : 'form-control'}}) }}
+                {#</div>#}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.endDate) }}
+                {#<div class="col-sm-5">#}
+                    {{ form_widget(form.endDate, {'attr' : {'class' : 'form-control'}}) }}
+                {#</div>#}
+            </div>
+
+            <div class="form-group">
+                {#<div class="col-sm-offset-2 col-sm-10" >#}
+                    {{ form_widget(form.submit) }}
+                {#</div>#}
+            </div>
+        </form>
+        <table class="table table-hover table-responsive">
+            <thead>
+            <tr>
+                <th width="300">№</th>
+                <th>Дата пропуска</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% if worker.absences.count == 0 %}
+                <tr>
+                    <td colspan="2">Нет пропусков</td>
+                </tr>
+            {% else %}
+                {% set i = 1 %}
+                {% for abs in absences %}
+                    <tr>
+                        <td>{{ i }} </td>
+                        {% set i = i + 1 %}
+                        <td>{{ abs.absenceDate|date('d-m-Y') }}</td>
+
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(absences) }}
+        </div>
+    </div>
+{% endblock %}

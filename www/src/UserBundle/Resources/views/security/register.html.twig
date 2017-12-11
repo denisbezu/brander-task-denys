@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    {{ form(register_form) }}
+{% endblock %}
+{% block my_js %}
+    {#{% javascript %}#}
+    <script>
+        $('#register_user_form_birthday').data("DateTimePicker").function()
+    </script>
+    {#{% endjavascript %}#}
+{% endblock %}

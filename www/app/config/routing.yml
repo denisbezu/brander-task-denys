@@ -1,0 +1,13 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+
+homepage:
+    path:  /
+    defaults: { _controller: AppBundle:Default:index}
+
+worker:
+    resource: "@WorkerBundle/Resources/config/routing.yml"

@@ -1,0 +1,4 @@
+services:
+    # Fixtures services
+    UserBundle\DataFixtures\ORM\RoleLoad:
+            tags: [doctrine.fixture.orm]

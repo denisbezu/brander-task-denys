@@ -1,0 +1,23 @@
+users:
+  path: /users
+  defaults: {  _controller: WorkerBundle:Worker:users }
+
+edit:
+  path: /users/edit/{id}
+  defaults: { _controller: WorkerBundle:Worker:edit }
+
+delete:
+  path: /delete/{id}
+  defaults: { _controller: WorkerBundle:Worker:delete }
+
+create:
+  path: /users/create
+  defaults: { _controller: WorkerBundle:Worker:create }
+
+details:
+  path: /users/details/{id}
+  defaults: { _controller: WorkerBundle:Worker:details }
+
+absence:
+  path: /users/absence/{id}
+  defaults: { _controller: WorkerBundle:Worker:absence }

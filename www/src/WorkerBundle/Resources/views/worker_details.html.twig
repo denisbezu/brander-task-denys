@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <div>
+        <div class="col-sm-4">
+            <img style="max-width: 200px; max-height: 200px;"
+                 src="{{ asset('images/upload/workers/logos/' ~ worker.logo) }}">
+        </div>
+        <div class="col-sm-8">
+            <h3><b>Имя: </b>{{ worker.name }}</h3>
+            <h3><b>Должность: </b>{{ worker.position.positionName }}</h3>
+            <h3><b>Рейт: </b>{{ worker.rate }}</h3>
+            <h3><b>Зарплата за месяц: </b>{{ salary }}</h3>
+            <h3><b>Первый рабочий день: </b>{{ worker.firstDay|date('d-m-Y') }}</h3>
+            <form class="form-inline" method="post">
+                <div class="form-group">
+                    {{ form_label(form.month ) }}
+                    {{ form_widget(form.month, {'attr' : {'class' : 'form-control'}}) }}
+                    {{ form_widget(form.year, {'attr' : {'class' : 'form-control'}}) }}
+                    {{ form_widget(form.submit) }}
+                </div>
+            </form>
+            <form class="form-horizontal form-group" style="margin-top: 20px;">
+                <a href="{{ path('edit', {'id': worker.id}) }}" class="btn btn-default">Изменить</a>
+                <a href="{{ path('delete', {'id': worker.id}) }}" class="btn btn-danger">Удалить</a>
+                <a href="{{ path('absence', {'id' : worker.id}) }}" class="btn btn-success">Пропуски</a>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
