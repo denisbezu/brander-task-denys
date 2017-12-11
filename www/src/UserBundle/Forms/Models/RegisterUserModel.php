@@ -12,6 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
 use UserBundle\Entity\UserAccount;
 
+/**задаем класс-модель для формы
+ * Class RegisterUserModel
+ * @package UserBundle\Forms\Models
+ */
 class RegisterUserModel
 {
     public $name;
@@ -92,6 +96,9 @@ class RegisterUserModel
     }
     //endregion
 
+    /**создание user и useraccount на основе модели
+     * @return User
+     */
     public function getUserHandler()
     {
         $user = new User();

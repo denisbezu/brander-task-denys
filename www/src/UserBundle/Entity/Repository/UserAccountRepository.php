@@ -13,12 +13,4 @@ use Doctrine\ORM\EntityRepository;
 
 class UserAccountRepository extends EntityRepository
 {
-//    public function findAllOrderedByUserName()
-//    {
-//        return $this->getEntityManager()
-//            ->createQuery(
-//                'SELECT usa FROM user_account u ORDER BY u.last_name ASC'
-//            )
-//            ->getResult();
-//    }
 }

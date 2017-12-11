@@ -17,10 +17,12 @@ use UserBundle\Forms\RegisterUserForm;
 
 class SecurityController extends Controller
 {
-
+    /**метод-действия для страницы login
+     * @return Response
+     */
     public function loginAction()
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
+        $authenticationUtils = $this->get('security.authentication_utils'); // получаем сервис аутентификации
 
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -32,12 +34,16 @@ class SecurityController extends Controller
         ));
     }
 
+    /**метод-действия для страницы регистрации
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function registerAction(Request $request)
-    {
+    { //задаем классы формы и соответствующую модель
         $registerModel = new RegisterUserModel();
         $register_form = $this->createForm(RegisterUserForm::class, $registerModel);
         $register_form->handleRequest($request);
-        if($register_form->isSubmitted())
+        if($register_form->isSubmitted()) // обраьатываем нажатие на кнопку submit и сохраняем данные в БД
         {
             $user = $registerModel->getUserHandler();
             $em = $this->getDoctrine()->getManager();

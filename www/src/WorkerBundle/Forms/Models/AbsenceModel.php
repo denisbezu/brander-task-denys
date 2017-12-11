@@ -15,6 +15,11 @@ use DateTime;
 use WorkerBundle\Entity\Absence;
 use WorkerBundle\Entity\Worker;
 
+/**
+ * модель для формы пропусков
+ * Class AbsenceModel
+ * @package WorkerBundle\Forms\Models
+ */
 class AbsenceModel
 {
     private $startDate;
@@ -38,17 +43,17 @@ class AbsenceModel
 
     public function getAbsenceHandler()
     {
-        if ($this->startDate != null && $this->endDate != null && $this->startDate <= $this->endDate) {
+        if ($this->startDate != null && $this->endDate != null && $this->startDate <= $this->endDate) { // проверяем заданы ли две даты и что первая меньше второй
             $period = new DatePeriod($this->startDate, new DateInterval('P1D'), $this->endDate);
             $arrayOfDates = array_map(
                 function ($item) {
                     return $item;
                 },
                 iterator_to_array($period)
-            );
+            ); // создаем массив дат заданного периода
             $absences = array();
             foreach ($arrayOfDates as $date) {
-                if ($this->checkIsntSet($date) && $this->isWeekDay($date))
+                if ($this->checkIsntSet($date) && $this->isWeekDay($date)) // создаем пропуск, если даты еще нету в БД и если это не выходной
                 {
                     $absence = new Absence();
                     $absence->setAbsenceDate($date);
@@ -67,7 +72,7 @@ class AbsenceModel
      * @param $currentDate
      * @return bool
      */
-    public function checkIsntSet($currentDate)
+    private function checkIsntSet($currentDate)
     {
         $flag = true;
         $workersAbsences = $this->worker->getAbsences();
@@ -86,7 +91,7 @@ class AbsenceModel
      * @param DateTime $date
      * @return bool
      */
-    public function isWeekDay(DateTime $date)
+    private function isWeekDay(DateTime $date)
     {
         $dayOfWeek = $date->format('l');
         if(in_array($dayOfWeek, $this->weekdays))

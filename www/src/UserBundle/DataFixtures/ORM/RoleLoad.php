@@ -16,7 +16,7 @@ use UserBundle\Entity\Role;
 
 class RoleLoad extends Fixture
 {
-
+    //создаем в БД роль
     public function load(ObjectManager $manager)
     {
         $roleRepo = $manager->getRepository(Role::class);
@@ -30,7 +30,7 @@ class RoleLoad extends Fixture
         }
 
     }
-
+// число как можно меньше, чтобы при выполнении в консоли команды добавления datafixtures - роли добавлялись первыми
     public function getOrder()
     {
         return -9999;

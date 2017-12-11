@@ -11,6 +11,7 @@ namespace WorkerBundle\Forms\Models;
 
 class Month
 {
+    //список месяцев
     public static function CreateMonths()
     {
         return array(

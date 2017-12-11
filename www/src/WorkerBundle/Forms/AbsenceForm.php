@@ -18,7 +18,7 @@ use WorkerBundle\Forms\Models\AbsenceModel;
 
 class AbsenceForm extends AbstractType
 {
-
+// конструктор формы добавлени пропусков
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('startDate', DateType::class, array(
@@ -38,7 +38,7 @@ class AbsenceForm extends AbstractType
             'attr' => array('class' => 'btn btn-success')
         ]);
     }
-
+    // ассоциируем модель
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

@@ -21,15 +21,9 @@ use WorkerBundle\Forms\Models\Month;
 
 class DetailsModelForm extends AbstractType
 {
-
+// конструктор формы для расчета зарплаты
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('month', ChoiceType::class, array(
-            'label' => 'Дата',
-            'choices' => Month::CreateMonths(),
-            'label_attr' => array('class' => 'h3'),
-            'placeholder' => false,
-        ));
         $builder->add('month', ChoiceType::class, array(
             'label' => 'Дата',
             'choices' => Month::CreateMonths(),
@@ -54,7 +48,7 @@ class DetailsModelForm extends AbstractType
             'data_class' => DetailsModel::class
         ]);
     }
-
+    // список годов
     private static function getYears()
     {
         $years = array();

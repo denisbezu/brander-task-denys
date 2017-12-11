@@ -16,26 +16,26 @@ use UserBundle\Entity\User;
 use UserBundle\Entity\UserAccount;
 
 class UserLoad extends Fixture {
-
+// создание пользователя
     public function load(ObjectManager $manager) {
 
         $roleRepo = $manager->getRepository(Role::class);
         $role = $roleRepo->findOneByRole('USER_ROLE');
         if(!$role)
             return;
-
+    //задаем данные, создаем user-а и соответствующий useraccount
         $encoder = Core::service('security.password_encoder');
         $user = new User();
         $password = $encoder->encodePassword($user, '123456');
         $user->setPassword($password);
         $user->addRole($role);
-        $user->setEmail('info@utilvideo.com');
+        $user->setEmail('denys.bezu@gmail.com');
 
         $userAccount = new UserAccount();
-        $userAccount->setFirstName('John')->setLastName('Doe');
+        $userAccount->setFirstName('Denys')->setLastName('Bezuhlyi');
         $userAccount->setBirthdate( new \DateTime() );
         $userAccount->setRegion('m');
-
+        //добавляем данные в БД
         $manager = Core::em();
         $manager->beginTransaction();
         try{

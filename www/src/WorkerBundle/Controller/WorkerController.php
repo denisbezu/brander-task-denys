@@ -24,16 +24,21 @@ use WorkerBundle\Forms\WorkerEditForm;
 
 class WorkerController extends Controller
 {
+    /**
+     * страница со списком всех сотрудников
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function usersAction(Request $request)
-    {
+    {//проверяем залогинен ли
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $em = $this->getDoctrine()->getManager();
-            $usersList = $em->getRepository('WorkerBundle:Worker')->findAll();
+            $usersList = $em->getRepository('WorkerBundle:Worker')->findAll(); // все сотрудники
             /**
              * @var $paginator \Knp\Component\Pager\Paginator
              */
-            $paginator = $this->get('knp_paginator');
+            $paginator = $this->get('knp_paginator'); // пагинация
             $result =  $paginator->paginate(
                 $usersList,
                 $request->query->getInt('page', 1),
@@ -49,12 +54,16 @@ class WorkerController extends Controller
 
     }
 
+    /**страница добавления сотрудника
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function createAction(Request $request)
     {
-        $workerModel = new WorkerEditModel();
-        $worker_form = $this->createForm(WorkerEditForm::class, $workerModel);
-        $worker_form->handleRequest($request);
-        if ($worker_form->isSubmitted()) {
+        $workerModel = new WorkerEditModel(); // создаем модель
+        $worker_form = $this->createForm(WorkerEditForm::class, $workerModel); // создаем форму и ассоциируем с моделью
+        $worker_form->handleRequest($request); // обрабатываем запрос
+        if ($worker_form->isSubmitted()) { // добавляем в БД
             $worker = $workerModel->getWorkerHandler();
             $em = $this->getDoctrine()->getManager();
             $em->persist($worker);
@@ -89,9 +98,15 @@ class WorkerController extends Controller
             ]);
     }
 
+    /**
+     * удаление пользователя
+     * @param Request $request
+     * @param Worker $worker
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteAction(Request $request, Worker $worker)
     {
-        //$worker = $this->getDoctrine()->getRepository(Worker::class)->find($id);
+        //если есть пользователь, то удаляем его из БД
         if ($worker != null) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($worker);
@@ -100,10 +115,16 @@ class WorkerController extends Controller
         }
     }
 
+    /**
+     * страница просмотра инфоо о пользователе
+     * @param Request $request
+     * @param Worker $worker
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function detailsAction(Request $request, Worker $worker)
     {
-        $now = new \DateTime();
-        $datemodel = new DetailsModel();
+        //$now = new \DateTime();
+        $datemodel = new DetailsModel(); // создаем модель, форму, ассоциируем с ней работника, обрабатываем запрос
         $datemodel->setWorker($worker);
         $dateForm = $this->createForm(DetailsModelForm::class, $datemodel);
         $dateForm->handleRequest($request);
@@ -118,9 +139,15 @@ class WorkerController extends Controller
         ]);
     }
 
+    /**
+     * страница пропусков
+     * @param Request $request
+     * @param Worker $worker
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function absenceAction(Request $request, Worker $worker)
     {
-        $absenceModel = new AbsenceModel($worker);
+        $absenceModel = new AbsenceModel($worker); // модель + форма + ассоциация + пагинация + добавление в БД, если
         $wAbsences = $worker->getAbsences();
         /**
          * @var $paginator \Knp\Component\Pager\Paginator
@@ -132,13 +159,13 @@ class WorkerController extends Controller
             $request->query->getInt('limit', 10)
         );
 
-        $absenceForm = $this->createForm(AbsenceForm::class, $absenceModel);
+        $absenceForm = $this->createForm(AbsenceForm::class, $absenceModel); // расчет пропусков - от включая до - не включая
         $absenceForm->handleRequest($request);
-        if ($absenceForm->isSubmitted()) {
-            $absences = $absenceModel->getAbsenceHandler();
+        if ($absenceForm->isSubmitted()) { // добавление пропусков
+            $absences = $absenceModel->getAbsenceHandler(); // получаем список пропусков
             $em = $this->getDoctrine()->getManager();
             foreach ($absences as $absence) {
-                $em->persist($absence); //добавить проверку, что уже есть
+                $em->persist($absence);
             }
             $em->flush();
         }

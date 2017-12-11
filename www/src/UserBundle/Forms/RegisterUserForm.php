@@ -23,6 +23,9 @@ use UserBundle\Forms\Models\RegisterUserModel;
 
 class RegisterUserForm extends AbstractType
 {
+    /**
+     *задаем параметрі формы
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class, [
@@ -63,6 +66,10 @@ class RegisterUserForm extends AbstractType
         ]);
     }
 
+    /**
+     * задаем класс данных
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

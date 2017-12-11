@@ -15,7 +15,7 @@ use WorkerBundle\Entity\Position;
 
 class PositionLoad extends Fixture
 {
-
+// добавляем должности через datafixtures
     public function load(ObjectManager $manager)
     {
         $positionRepo = $manager->getRepository(Position::class);

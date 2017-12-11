@@ -27,7 +27,8 @@ use WorkerBundle\Forms\Models\WorkerEditModel;
 
 class WorkerEditForm extends AbstractType
 {
-        public function buildForm(FormBuilderInterface $builder, array $options)
+    // конструктор формы для изменения/добавления сотрудника
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class, [
             'label' => 'Имя',
@@ -68,11 +69,11 @@ class WorkerEditForm extends AbstractType
             'data_class' => WorkerEditModel::class
         ]);
     }
-
+    // обработка картинки
     public static function processImage(UploadedFile $uploadedFile)
     {
-        if($uploadedFile)
-        {
+        // добавляем в указанную папку загруженную картинку
+        if ($uploadedFile) {
             $path = '../../www/web/images/upload/workers/logos';
 
             $uploadedFileInfo = pathinfo($uploadedFile->getClientOriginalName());
@@ -80,8 +81,7 @@ class WorkerEditForm extends AbstractType
 
             $uploadedFile->move($path, $fileName);
             return $fileName;
-        }
-        else
+        } else
             return null;
     }
 }

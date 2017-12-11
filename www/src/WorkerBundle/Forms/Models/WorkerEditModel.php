@@ -10,6 +10,11 @@ use WorkerBundle\Entity\Position;
 use WorkerBundle\Entity\Worker;
 use WorkerBundle\Forms\WorkerEditForm;
 
+/**
+ * Модель для изменения/добавления сотрудника
+ * Class WorkerEditModel
+ * @package WorkerBundle\Forms\Models
+ */
 class WorkerEditModel
 {
     private $name;
@@ -108,6 +113,10 @@ class WorkerEditModel
     }
     //endregion
 
+    /**
+     * Создание сотрудника на основе модели
+     * @return Worker
+     */
     public function getWorkerHandler()
     {
         $worker = new Worker();
@@ -123,6 +132,10 @@ class WorkerEditModel
         return $worker;
     }
 
+    /**
+     * создание модели на основе заданного сотрудника
+     * @param Worker $worker
+     */
     public function createModelFromWorker(Worker $worker)
     {
         $this->name = $worker->getName();
@@ -132,6 +145,11 @@ class WorkerEditModel
         $this->logoPath = $worker->getLogo();
     }
 
+    /**
+     * изменение сотрудника на основе модели
+     * @param Worker $worker
+     * @return Worker
+     */
     public function changeWorker(Worker $worker)
     {
         var_dump($this->rate);
